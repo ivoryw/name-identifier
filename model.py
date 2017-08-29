@@ -21,24 +21,17 @@ class log_reg:
 
     def predict(self, X):
         P = self.__sig(X.dot(self.theta))
-        print P
-        if(P < 0.5):
-            return 0
-        else:
-            return 1
-            
+        result = [0 if p < 0.5 else 1 for p in P]
+        return result 
+
     def __sig(self, x):
         return 1 / (1 + np.exp(-x))
 
     def score(self, X, Y):
-        s = 0
-        for x, y in zip(X, Y):
-            P = self.__sig(x.dot(self.theta))
-            if P < 0.5:
-                r = 0 
-            else:
-                r = 1 
-            if r == y:
-                s += 1
-        return float(s)/len(Y)
+        s = 0.0
+        P = self.__sig(X.dot(self.theta))
+        for p, y in zip(P, Y):
+            if (p>=0.5) == bool(y):
+                s += 1.0
+        return s / len(Y)
 
