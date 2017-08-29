@@ -5,9 +5,9 @@ It also contains two demonstration scripts, `build_model.py`, which can be used 
 
 The `model` file contains a prebuilt model which can be used by the predict script
 
-###`RDF_processor`
+### `RDF_processor`
 
-#####`RDF_processor.parse_identifiers(ident_file, object)`
+##### `RDF_processor.parse_identifiers(ident_file, object)`
 Constructs and stores a set of `<subjects>` from `ident_file` with RDF:type `object` using the Redland Python bindings.
 The format of the RDF file should be:
 	
@@ -16,7 +16,7 @@ The format of the RDF file should be:
 * `ident_file`: Name of the RDF turtle file to be parsed.
 * `object`: URI of the parsing `<object>`
 
-#####`RDF_processor.map(map_file, balance=True)`
+##### `RDF_processor.map(map_file, balance=True)`
 Constructs and stores an array of `<object>` strings for `FOAF:Name` predicates, and a corresponding array describing the `<object>`'s presence in the stored set of subjects.
 
 The format of the RDF file should be:
@@ -26,41 +26,41 @@ The format of the RDF file should be:
 * `map_file`: Name of the RDF turtle file to be parsed & mapped
 * `balance`: If `True`, balances the arrays by downsampling the more prevelant category.
 
-#####`RDF_processor.hash(mapping_size=1000)`
+##### `RDF_processor.hash(mapping_size=1000)`
 Performs feature hashing on the stored object strings using mmh3
 
 * `mapping_size`: The range of the hashes, between [-_mapping\_size_, +_mapping\_size_]
 
-#####`RDF_processor.get_hash()`
+##### `RDF_processor.get_hash()`
 Returns the current hash array
 
-#####`RDF_processor.get_identifiers()`
+##### `RDF_processor.get_identifiers()`
 Returns the array of identifiers
 
-#####`RDF_processor.get_subject()`
+##### `RDF_processor.get_subject()`
 Returns the array of subject strings
 
 
-###`log_reg`
+### `log_reg`
 
-#####`log_reg.log_reg(size, batch_size=1000, alpha=0.2)`
+##### `log_reg.log_reg(size, batch_size=1000, alpha=0.2)`
 
 * `size`: Number of features in the array to be modelled
 * `batch_size`: The maximum size of each batch
 * `alpha`: The learning rate for batch SGD
 
-#####`log_reg.fit(X, Y)`
+##### `log_reg.fit(X, Y)`
 Fits dataset `X` to target `Y` using Mini-batch Gradient Descent
 
 * `X`: The array to be fitted. Of shape (_n\_samples_, _n\_features_)
 * `Y`: The target array for `X`. Of shape (_n\_samples_)
 
-#####`log_reg.predict(X)`
+##### `log_reg.predict(X)`
 Predicts the value of `X` using the fitted model
  
 * `X`: Value to be fitted
 
-#####`log_reg.score(X, Y)`
+##### `log_reg.score(X, Y)`
 Returns the mean successful prediction rate for `X` on the fitted model 
 
 * `X`: The array to be predicted
