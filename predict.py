@@ -13,5 +13,5 @@ def hash(name, mapping_size):
 model = pickle.load(open("model", "rb"))
 while True:
     name = raw_input("Enter string: ")
-    name_hash = hash(name, 100000)
+    name_hash = hash(name, 200000)
     print model.predict(name_hash)
