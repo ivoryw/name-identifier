@@ -31,8 +31,8 @@ Performs feature hashing on the stored object strings using mmh3
 
 * `mapping_size`: The range of the hashes, between [-_mapping\_size_, +_mapping\_size_]
 
-##### `RDF_processor.get_hash()`
-Returns the current hash array
+##### `RDF_processor.get_features()`
+Returns the current feature array
 
 ##### `RDF_processor.get_identifiers()`
 Returns the array of identifiers

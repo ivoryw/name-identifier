@@ -9,15 +9,15 @@ FOAF_Person = "http://xmlns.com/foaf/0.1/Person"
 c = parse.RDF_processor()
 
 # Uncomment these to load a from an RDF file instead of a pickled array (and comment the c.load("sample"))
-#c.parse_identities("identity_file", FOAF_Person)
-#c.map("map_file")
-#c.hash()
-#c.save("sample")
-c.load("sample")
+c.parse_identifiers("identity", FOAF_Person)
+c.map("map")
+c.hash()
+c.save("sample")
+#c.load("sample")
 size = 100000
 c.hash(mapping_size=size)
 
-X = c.get_hashes()
+X = c.get_features()
 Y = c.get_targets()
 
 X, Y = shuffle(X, Y)

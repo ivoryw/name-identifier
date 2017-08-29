@@ -1,6 +1,7 @@
 import RDF
 import mmh3
 import numpy as np
+import os.path
 from scipy.sparse import dok_matrix
 import cPickle as pickle 
 
@@ -14,6 +15,8 @@ class RDF_processor:
         self.subj_list= []
 
     def parse_identifiers(self, ident_file, obj):
+        if not os.path.isfile(ident_file):
+           raise IOError(ident_file + " could not be found") 
         parser = RDF.TurtleParser()
         identifiers = RDF.Model(RDF.HashStorage('ident_hash', options="hash-type='memory'"))
         parser.parse_into_model(identifiers, "file:./" + ident_file)
@@ -21,6 +24,8 @@ class RDF_processor:
         self.name_list = set(identifiers.get_sources(RDF.Uri(RDF_type), RDF.Uri(obj)))
         
     def map(self, map_file, balance=True):
+        if not os.path.isfile(map_file):
+            raise IOError(map_file + " could not be found")
         parser = RDF.TurtleParser()
         mappings = RDF.Model(RDF.HashStorage('map_hash', options="hash-type='memory'"))
         parser.parse_into_model(mappings, "file:./" + map_file)
@@ -48,12 +53,12 @@ class RDF_processor:
         return subj_list, other_list
 
     def hash(self, mapping_size=10000):
-        self.data_set = dok_matrix((len(self.is_type), mapping_size))
+        self.features = dok_matrix((len(self.is_type), mapping_size))
         index = 0
         for subj in self.subj_list:
-            hash_arr = self.__hash_tokens(subj, mapping_size)
-            for hash in hash_arr:
-                self.data_set[index, hash] = 1
+            token_arr = self.__hash_tokens(subj, mapping_size)
+            for hash in token_arr:
+                self.features[index, hash] = 1
             index += 1
 
     def __hash_tokens(self, subject, mapping_size):
@@ -61,8 +66,8 @@ class RDF_processor:
         token_arr = [mmh3.hash(token) % mapping_size for token in subject_tokens]
         return token_arr
     
-    def get_hashes(self):
-        return self.data_set
+    def get_features(self):
+        return self.features
 
     def get_subjects(self):
         return self.subj_list
@@ -71,11 +76,14 @@ class RDF_processor:
         return self.is_type
 
     def save(self, filename):
-        pickle.dump(self.data_set, open(filename + ".hash", "wb"))
+        pickle.dump(self.features, open(filename + ".feat", "wb"))
         pickle.dump(self.is_type, open(filename + ".type", "wb"))
         pickle.dump(self.subj_list, open(filename + ".subj", "wb"))
 
     def load(self, filename):
-        self.data_set = pickle.load(open(filename + ".hash", "rb"))
-        self.is_type= pickle.load(open(filename + ".type", "rb"))
-        self.subj_list = pickle.load(open(filename + ".subj", "rb"))
+        try:
+                self.features = pickle.load(open(filename + ".feat", "rb"))
+                self.is_type= pickle.load(open(filename + ".type", "rb"))
+                self.subj_list = pickle.load(open(filename + ".subj", "rb"))
+        except IOError:
+            print filename + "could not be found"
