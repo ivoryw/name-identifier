@@ -3,6 +3,8 @@
 The program consists of two modules, a RDF_processor and a model.
 It also contains two demonstration scripts, `build_model.py`, which can be used to create a model from serialized hash arrays or RDF triples and `predict.py` which provides predictions for a stored model.
 
+The `model` file contains a prebuilt model which can be used by the predict script
+
 ###`RDF_processor`
 
 #####`RDF_processor.parse_identifiers(ident_file, object)`
