@@ -7,9 +7,12 @@ import cPickle as pickle
 FOAF_Person = "http://xmlns.com/foaf/0.1/Person"
 
 c = parse.RDF_processor()
-#c.parse_identities("instance_types_transitive_en.ttl", FOAF_Person)
-#c.map("mappingbased_literals_en.ttl")
+
+# Uncomment these to load a from an RDF file instead of a pickled array (and comment the c.load("sample"))
+#c.parse_identities("identity_file", FOAF_Person)
+#c.map("map_file")
 #c.hash()
+#c.save("sample")
 c.load("sample")
 size = 100000
 c.hash(mapping_size=size)
