@@ -43,14 +43,15 @@ Returns the array of subject strings
 
 ### `log_reg`
 
-##### `log_reg.log_reg(size, batch_size=1000, alpha=0.2)`
+##### `log_reg.log_reg(size, batch_size=1000, alpha=0.2, C=0.0)`
 
 * `size`: Number of features in the array to be modelled
 * `batch_size`: The maximum size of each batch
 * `alpha`: The learning rate for batch SGD
+* `C`: The L2 regularization term
 
 ##### `log_reg.fit(X, Y)`
-Fits dataset `X` to target `Y` using Mini-batch Gradient Descent
+Fits dataset `X` to target `Y` by minimizing the logistic cost function using Mini-batch Gradient Descent
 
 * `X`: The array to be fitted. Of shape (_n\_samples_, _n\_features_)
 * `Y`: The target array for `X`. Of shape (_n\_samples_)

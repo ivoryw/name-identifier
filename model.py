@@ -3,10 +3,11 @@ import scipy as sp
 from math import ceil
 
 class log_reg:
-    def __init__(self, size, batch_size=1000, alpha=0.2):
-        self.batch_size = batch_size
-        self.alpha = alpha 
-        self.theta = np.full((size,1), -1.0)
+    def __init__(self, size, batch_size=1000, alpha=0.2, C=0):
+       self.batch_size = batch_size
+       self.alpha = alpha 
+       self.theta = np.full((size,1), -1.0)
+       self.C = C
 
     def fit(self, X, y):
         X = X.asformat("csr")
@@ -17,7 +18,7 @@ class log_reg:
             y_batch = np.array(y_batch).reshape(len(y_batch),1)
             h = self.__sig(X_batch.dot(self.theta))
             grad = X_batch.transpose().dot(h - y_batch)
-            self.theta -= self.alpha * grad
+            self.theta -= self.alpha * (grad + self.C * self.theta)
 
     def predict(self, X):
         P = self.__sig(X.dot(self.theta))

@@ -27,7 +27,7 @@ X_test = X[n_train:, :]
 Y_train = Y[:n_train]
 Y_test = Y[n_train:]
 
-log_r = model.log_reg(size)
+log_r = model.log_reg(size, alpha=0.1, C=0.05)
 for i in range(0, 100):
     log_r.fit(X_train, Y_train)
 pickle.dump(log_r, open("model", "wr"))
