@@ -31,6 +31,9 @@ Performs feature hashing on the stored object strings using mmh3
 
 * `mapping_size`: The range of the hashes, between [-_mapping\_size_, +_mapping\_size_]
 
+##### `RDF_processor.shuffle()`
+Shuffles the subject, features and identity arrays
+
 ##### `RDF_processor.get_features()`
 Returns the current feature array
 
