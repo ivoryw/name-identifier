@@ -2,6 +2,7 @@ import RDF
 import mmh3
 import numpy as np
 import os.path
+import re
 from scipy.sparse import dok_matrix
 import cPickle as pickle 
 
@@ -63,7 +64,7 @@ class RDF_processor:
             index += 1
 
     def __hash_tokens(self, subject, mapping_size):
-        subject_tokens = subject.split()
+        subject_tokens = re.findall(r"[\w']+", subject)
         token_arr = [mmh3.hash(token) % mapping_size for token in subject_tokens]
         return token_arr
     
