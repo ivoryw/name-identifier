@@ -27,7 +27,7 @@ The format of the RDF file should be:
 * `balance`: If `True`, balances the arrays by downsampling the more prevelant category.
 
 ##### `RDF_processor.hash(mapping_size=1000)`
-Performs feature hashing on the stored object strings using mmh3.
+Tokenises the array of object strings and hashes them using mmh3 to create and store a `scipy_dok` sparse matrix.
 
 * `mapping_size`: The range of the hashes, between [-_mapping\_size_, +_mapping\_size_]
 
