@@ -8,7 +8,7 @@ The `model` file contains a prebuilt model which can be used by the predict scri
 ### `RDF_processor`
 
 ##### `RDF_processor.parse_identifiers(ident_file, object)`
-Constructs and stores a set of `<subjects>` from `ident_file` with RDF:type `object` using the Redland Python bindings.
+Constructs and stores a set of `<subjects>` from `ident_file` with `RDF:type == object` using the Redland Python bindings.
 The format of the RDF file should be:
 	
     <subject> RDF:type <object>.
@@ -17,7 +17,7 @@ The format of the RDF file should be:
 * `object`: URI of the parsing `<object>`
 
 ##### `RDF_processor.map(map_file, balance=True)`
-Constructs and stores an array of `<object>` strings for `FOAF:Name` predicates, and a corresponding array describing the `<object>`'s presence in the stored set of subjects.
+Constructs and stores an array of `<object>` strings for `FOAF:Name` predicates, and a corresponding identifier array describing the `<subjects>`'s presence in the stored set of subjects.
 
 The format of the RDF file should be:
 
@@ -27,21 +27,21 @@ The format of the RDF file should be:
 * `balance`: If `True`, balances the arrays by downsampling the more prevelant category.
 
 ##### `RDF_processor.hash(mapping_size=1000)`
-Performs feature hashing on the stored object strings using mmh3
+Performs feature hashing on the stored object strings using mmh3.
 
 * `mapping_size`: The range of the hashes, between [-_mapping\_size_, +_mapping\_size_]
 
 ##### `RDF_processor.shuffle()`
-Shuffles the subject, features and identity arrays
+Shuffles the subject, features and identifier arrays.
 
 ##### `RDF_processor.get_features()`
-Returns the current feature array
+Returns the current feature array.
 
 ##### `RDF_processor.get_identifiers()`
-Returns the array of identifiers
+Returns the array of identifiers.
 
 ##### `RDF_processor.get_subject()`
-Returns the array of subject strings
+Returns the array of subject strings.
 
 
 ### `log_reg`
@@ -54,18 +54,18 @@ Returns the array of subject strings
 * `C`: The L2 regularization term
 
 ##### `log_reg.fit(X, Y)`
-Fits dataset `X` to target `Y` by minimizing the logistic cost function using Mini-batch Gradient Descent
+Fits dataset `X` to target `Y` by minimizing the logistic cost function using Mini-batch Gradient Descent with L2 regularization.
 
 * `X`: The array to be fitted. Of shape (_n\_samples_, _n\_features_)
 * `Y`: The target array for `X`. Of shape (_n\_samples_)
 
 ##### `log_reg.predict(X)`
-Predicts the value of `X` using the fitted model
+Predicts the value of `X` using the fitted model.
  
 * `X`: Value to be fitted
 
 ##### `log_reg.score(X, Y)`
-Returns the mean successful prediction rate for `X` on the fitted model 
+Returns the mean successful prediction rate for `X` against targets `Y` on the fitted model.
 
 * `X`: The array to be predicted
 * `Y`: The targets to be compared against
