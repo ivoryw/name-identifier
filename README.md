@@ -69,3 +69,12 @@ Returns the mean successful prediction rate for `X` on the fitted model
 
 * `X`: The array to be predicted
 * `Y`: The targets to be compared against
+
+
+## Requirements
+* Python 2.7
+* numpy
+* scipy
+* mmh3
+* Redland Python bindings
+* cPickle
